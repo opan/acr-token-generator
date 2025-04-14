@@ -110,7 +110,8 @@ if [ "$SECRET_EXISTS" -eq 200 ]; then
     -H "Content-Type: application/json" \
     --data "$SECRET_PAYLOAD" \
     "https://kubernetes.default.svc/api/v1/namespaces/$NAMESPACE/secrets/$SECRET_NAME" \
-    --insecure # Use --insecure if you do not have CA certificates in the pod
+    -o /dev/null \
+    --insecure
   
   echo "Secret $SECRET_NAME updated successfully."
 else
@@ -121,6 +122,7 @@ else
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $TOKEN" \
     --data "$SECRET_PAYLOAD" \
+    -o /dev/null \
     --insecure # Use --insecure if you do not have CA certificates in the pod
   
   echo "Secret $SECRET_NAME created successfully."
